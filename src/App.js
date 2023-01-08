@@ -4,12 +4,12 @@ import Welcome from './components/Welcome';
 import QuizPage from './components/QuizPage';
 
 export default function App() {
-  const [welcome, setWelcome] = useState(true);
+  const [started, setStarted] = useState(false);
 
   return (
     <div className="App">
-      {welcome && <Welcome />}
-     
+      <Welcome />
+      {started &&<QuizPage />}
     </div>
   );
 }

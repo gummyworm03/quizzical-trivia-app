@@ -3,6 +3,6 @@ import '../styles.css';
 
 export default function QuizPage() {
     return (
-        <main className='quiz-page'></main>
+        <main className='quiz-page'>Quiz Page</main>
     )
 }
