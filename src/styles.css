@@ -49,10 +49,6 @@ button:focus {
     
 }
 
-.quiz-page {
-
-}
-
 .start-button {
     height: 50px;
     width: 175px;
@@ -75,4 +71,52 @@ button:focus {
 .welcome-page .title {
     margin-bottom: 0;
     font-size: 40px;
+}
+
+.quiz-page.fade-in {
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+.quiz-page {
+    padding: 60px;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+    margin-bottom: 15px;
+  }
+
+legend {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  label {
+    margin-right: 10px;
+    display: inline-block;
+    min-width: 70px;
+    height: 30px;
+    border: .8px solid #4D5B9E;
+    border-radius: 8px;
+    padding: 5px;
+  }
+
+  input {
+    visibility: hidden;
+}
+
+hr {
+    border: .05rem solid #DBDEF0;
+
 }
