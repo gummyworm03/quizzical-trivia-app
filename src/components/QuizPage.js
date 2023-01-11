@@ -9,6 +9,7 @@ export default function QuizPage(props) {
     const [allAnswered, setAllAnswered] = useState(false);
     const [showError, setShowError] = useState(false);
     const [checkAnswers, setCheckAnswers] = useState(false);
+    const [numCorrectAnswers, setNumCorrectAnswers] = useState(null);
     //will add check for perfect score to render confetti 
     const [perfectScore, setPerfectScore] = useState(false);
     
@@ -64,24 +65,28 @@ export default function QuizPage(props) {
     }
     console.log(quizState)
 
-    let numCorrectAnswers;
     function handleSubmit(event) {
         event.preventDefault();
         const scoreAnswersArray = quizState.filter(question => question.selectedAnswer === question.correctAnswer)
-        numCorrectAnswers = scoreAnswersArray.length;
+        setNumCorrectAnswers(scoreAnswersArray.length);
         setCheckAnswers(true);
         if (numCorrectAnswers === 5) {
             setPerfectScore(true);
         }
     }
+
+    useEffect(() => {
+        if (numCorrectAnswers === 5) {
+            setPerfectScore(true);
+        }
+    }, [checkAnswers])
+
     console.log(checkAnswers, perfectScore, numCorrectAnswers)
     const quizElements = props.quizData.map(question => (
         <QuizCard 
             key={nanoid()}
             id={question.question}
             question={question.question}
-            correctAnswer={question.correct_answer}
-            incorrectAnswers={question.incorrect_answers}
             quizState={quizState}
             handleChange={handleChange}
             
