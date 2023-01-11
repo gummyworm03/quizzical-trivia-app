@@ -20,7 +20,14 @@ export default function QuizCard(props) {
         txt.innerHTML = html;
         return txt.value;
     }
-//checked={props.quizState[0].selectedAnswer === answers[0]}
+    //Get index of current question
+    function getQuestionIndex() {
+        return props.quizState.findIndex(question => question.id === props.id);
+    }
+    
+    const questionIndex = getQuestionIndex();
+    //console.log(questionIndex);
+
     return (
         <main className='quiz-card'>
             <fieldset>
@@ -31,7 +38,7 @@ export default function QuizCard(props) {
                     id={`answer-${answers[0]}`}
                     name={`answer-${props.id}`}
                     value={answers[0]}
-                    checked={props.quizState[0].selectedAnswer === answers[0]}
+                    checked={props.quizState[questionIndex].selectedAnswer === answers[0]}
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
                 <label htmlFor={`answer-${answers[0]}`}>{decodeHtml(answers[0])}</label>
@@ -41,8 +48,9 @@ export default function QuizCard(props) {
                     id={`answer-${answers[1]}`}
                     name={`answer-${props.id}`}
                     value={answers[1]}
-                    checked={props.quizState[1].selectedAnswer === answers[1]}
+                    checked={props.quizState[questionIndex].selectedAnswer === answers[1]}
                     onChange={(event)=>props.handleChange(event,props.id)}
+                    
                 />
                 <label htmlFor={`answer-${answers[1]}`}>{decodeHtml(answers[1])}</label>
                 
@@ -51,7 +59,7 @@ export default function QuizCard(props) {
                     id={`answer-${answers[2]}`}
                     name={`answer-${props.id}`}
                     value={answers[2]}
-                    checked={props.quizState[2].selectedAnswer === answers[2]}
+                    checked={props.quizState[questionIndex].selectedAnswer === answers[2]}
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
                 <label htmlFor={`answer-${answers[2]}`}>{decodeHtml(answers[2])}</label>
@@ -61,7 +69,7 @@ export default function QuizCard(props) {
                     id={`answer-${answers[3]}`}
                     name={`answer-${props.id}`}
                     value={answers[3]}
-                    checked={props.quizState[3].selectedAnswer === answers[3]}
+                    checked={props.quizState[questionIndex].selectedAnswer === answers[3]}
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
                 <label htmlFor={`answer-${answers[3]}`}>{decodeHtml(answers[3])}</label>

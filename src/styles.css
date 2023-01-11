@@ -110,7 +110,7 @@ legend {
     font-weight: 700;
   }
 
-label {
+input[type="radio"] + label {
     margin-right: 9px;
     margin-left: 0;
     display: inline-block;
@@ -126,9 +126,18 @@ label {
     font-weight: 500;
 }
 
-input {
+label:hover {
+    background-color: #D6DBF5;
+}
+
+input[type="radio"] {
     visibility: hidden;
     margin-right: -15px;
+}
+
+input[type="radio"]:checked + label {
+    background-color: #D6DBF5;
+   
 }
 
 hr {

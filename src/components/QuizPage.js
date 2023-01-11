@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles.css';
 import { nanoid } from 'nanoid';
 import QuizCard from './QuizCard';
@@ -7,7 +7,6 @@ import QuizCard from './QuizCard';
 export default function QuizPage(props) {
     const [quizState, setQuizState] = useState(getQuizState());
     
-
     function getQuizState() {
         return (props.quizData.map(question => {
             return ({
@@ -27,6 +26,7 @@ export default function QuizPage(props) {
         })
     }
 
+
     const quizElements = props.quizData.map(question => (
         <QuizCard 
             key={nanoid()}
@@ -36,6 +36,7 @@ export default function QuizPage(props) {
             incorrectAnswers={question.incorrect_answers}
             quizState={quizState}
             handleChange={handleChange}
+            
         />
     ))
 
