@@ -3,30 +3,20 @@ import '../styles.css';
 
 
 export default function QuizCard(props) {
-    //make sure to change answers to quizAnswers, so answers can be used in App state
-    let answers = [...props.incorrectAnswers, props.correctAnswer];
-    
-    const shuffle = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
-          let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
-          [array[i], array[j]] = [array[j], array[i]];
-        }
-      }
-    
-    useEffect(() =>shuffle(answers), []);
-    
+
     function decodeHtml(html) {
         let txt = document.createElement('textarea');
         txt.innerHTML = html;
         return txt.value;
     }
-    //Get index of current question
-    function getQuestionIndex() {
-        return props.quizState.findIndex(question => question.id === props.id);
+
+    //Get current question and save in variable for readability
+    function getCurrentQuestion() {
+        const questionIndex = props.quizState.findIndex(question => question.id === props.id);
+        return props.quizState[questionIndex];
     }
+    const currentQuestion = getCurrentQuestion();
     
-    const questionIndex = getQuestionIndex();
-    //console.log(questionIndex);
 
     return (
         <main className='quiz-card'>
@@ -35,47 +25,48 @@ export default function QuizCard(props) {
                 
                 <input 
                     type="radio"
-                    id={`answer-${answers[0]}`}
+                    id={`answer-${currentQuestion.answers[0]}`}
                     name={`answer-${props.id}`}
-                    value={answers[0]}
-                    checked={props.quizState[questionIndex].selectedAnswer === answers[0]}
+                    value={currentQuestion.answers[0]}
+                    checked={currentQuestion.selectedAnswer === currentQuestion.answers[0]}
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
-                <label htmlFor={`answer-${answers[0]}`}>{decodeHtml(answers[0])}</label>
+                <label htmlFor={`answer-${currentQuestion.answers[0]}`}>{decodeHtml(currentQuestion.answers[0])}</label>
                 
                 <input 
                     type="radio"
-                    id={`answer-${answers[1]}`}
+                    id={`answer-${currentQuestion.answers[1]}`}
                     name={`answer-${props.id}`}
-                    value={answers[1]}
-                    checked={props.quizState[questionIndex].selectedAnswer === answers[1]}
+                    value={currentQuestion.answers[1]}
+                    checked={currentQuestion.selectedAnswer === currentQuestion.answers[1]}
                     onChange={(event)=>props.handleChange(event,props.id)}
                     
                 />
-                <label htmlFor={`answer-${answers[1]}`}>{decodeHtml(answers[1])}</label>
+                <label htmlFor={`answer-${currentQuestion.answers[1]}`}>{decodeHtml(currentQuestion.answers[1])}</label>
                 
                 <input 
                     type="radio"
-                    id={`answer-${answers[2]}`}
+                    id={`answer-${currentQuestion.answers[2]}`}
                     name={`answer-${props.id}`}
-                    value={answers[2]}
-                    checked={props.quizState[questionIndex].selectedAnswer === answers[2]}
+                    value={currentQuestion.answers[2]}
+                    checked={currentQuestion.selectedAnswer === currentQuestion.answers[2]}
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
-                <label htmlFor={`answer-${answers[2]}`}>{decodeHtml(answers[2])}</label>
+                <label htmlFor={`answer-${currentQuestion.answers[2]}`}>{decodeHtml(currentQuestion.answers[2])}</label>
                 
                 <input 
                     type="radio"
-                    id={`answer-${answers[3]}`}
+                    id={`answer-${currentQuestion.answers[3]}`}
                     name={`answer-${props.id}`}
-                    value={answers[3]}
-                    checked={props.quizState[questionIndex].selectedAnswer === answers[3]}
+                    value={currentQuestion.answers[3]}
+                    checked={currentQuestion.selectedAnswer === currentQuestion.answers[3]}
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
-                <label htmlFor={`answer-${answers[3]}`}>{decodeHtml(answers[3])}</label>
+                <label htmlFor={`answer-${currentQuestion.answers[3]}`}>{decodeHtml(currentQuestion.answers[3])}</label>
 
             </fieldset>
             <hr />
         </main>
     )
 }
+
