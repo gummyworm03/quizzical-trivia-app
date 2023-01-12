@@ -89,6 +89,7 @@ export default function QuizPage(props) {
             id={question.question}
             question={question.question}
             quizState={quizState}
+            checkAnswers={checkAnswers}
             handleChange={handleChange}
             
         />

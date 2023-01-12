@@ -122,7 +122,7 @@ legend {
     font-weight: 700;
   }
 
-input[type="radio"] + label {
+label {
     margin-right: 9px;
     margin-left: 0;
     display: inline-block;
@@ -174,4 +174,14 @@ hr {
 
 .button-check-disabled {
     cursor: not-allowed;
+}
+
+.ans-label.ans-correct {
+    background-color: #94D7A2;
+    border-color: #94D7A2;
+}
+
+.ans-label.ans-incorrect {
+    background-color: #F8BCBC;
+    border-color: #F8BCBC;
 }
