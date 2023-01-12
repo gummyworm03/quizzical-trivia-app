@@ -5,9 +5,19 @@ import QuizPage from './components/QuizPage';
 export default function App() {
   const [started, setStarted] = useState(false);
   const [quizData, setQuizData] = useState([]);
+  const [isFetched, setIsFetched] = useState(false);
+  const [playAgain, setPlayAgain] = useState(false);
+  
 
   function startQuiz() {
     setStarted(true);
+  }
+
+  function newGame(event) {
+    event.preventDefault();
+    console.log('Play Again')
+    setIsFetched(false);
+    setPlayAgain(true);
   }
 
   useEffect(() => {
@@ -15,17 +25,30 @@ export default function App() {
       const res = await fetch("https://opentdb.com/api.php?amount=5&type=multiple");
       const data = await res.json();
       setQuizData(data.results);
-  }
-  getQuizData();
-  
-  }, [])
+      setIsFetched(true);
+    }
+    getQuizData();
+  }, [playAgain])
 
+  //console.log(quizData)
+    
+    //when setting newgame:
+    // quizstate needs to reset
+    // allAnswered > false
+    //checkAnswers > false
+    //numCorrectAnswers > null
+    //!perfectScore ? do nothing : setPerfectScore(true)
+
+
+    
   return (
     <div className="App">
       <Welcome startQuiz={startQuiz}/>
-      {started &&<QuizPage started={started} quizData={quizData}/>}
+      {started && isFetched &&<QuizPage 
+                    started={started} 
+                    quizData={quizData}
+                    playAgain={playAgain}
+                    newGame={newGame}/>}
     </div>
   );
 }
-
-

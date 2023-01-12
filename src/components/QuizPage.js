@@ -7,12 +7,21 @@ import QuizCard from './QuizCard';
 export default function QuizPage(props) {
     const [quizState, setQuizState] = useState(getQuizState());
     const [allAnswered, setAllAnswered] = useState(false);
-    const [showError, setShowError] = useState(false);
     const [checkAnswers, setCheckAnswers] = useState(false);
     const [numCorrectAnswers, setNumCorrectAnswers] = useState(null);
-    //will add check for perfect score to render confetti 
+  //will add check for perfect score to render confetti 
     const [perfectScore, setPerfectScore] = useState(false);
+    const [showError, setShowError] = useState(false);
+   
     
+    // when setting newgame:
+    // quizstate needs to reset
+    // allAnswered > false
+    // checkAnswers > false
+    // numCorrectAnswers > null
+    // !perfectScore ? do nothing : setPerfectScore(true)
+
+
     //helper function to shuffle answers
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -33,6 +42,7 @@ export default function QuizPage(props) {
             })
         }))
     }    
+    
     //shuffle answers only once
     useEffect(() => {
         setQuizState(() => {
@@ -63,7 +73,7 @@ export default function QuizPage(props) {
             }))
         })
     }
-    console.log(quizState)
+    //console.log(quizState)
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -80,14 +90,7 @@ export default function QuizPage(props) {
         
     }
 
-    //check for perfect score
-    useEffect(() => {
-        if (numCorrectAnswers === 5) {
-            setPerfectScore(true);
-        }
-    }, [checkAnswers])
-
-    console.log(checkAnswers, perfectScore, numCorrectAnswers)
+   
     const quizElements = props.quizData.map(question => (
         <QuizCard 
             key={nanoid()}
@@ -99,16 +102,16 @@ export default function QuizPage(props) {
             
         />
     ))
-//console.log(showError)
+
     return (
         <main className={props.started ? "quiz-page fade-in" : "quiz-page"}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={checkAnswers ? (event)=>props.newGame(event) : handleSubmit}>
                 {quizElements}
                 <div className='btn-container'>
                     <button className={allAnswered ? 'button-check' : 'button-check button-check-disabled'}
                             onMouseEnter={() => setShowError(true)}
                             onMouseLeave={() => setShowError(false)}>
-                        Check answers
+                        {checkAnswers ? 'Play Again' : 'Check answers'}
                     </button> 
                     {showError && !allAnswered && <h3 id='error-message' className='message'>Please answer all questions</h3>}
                     {checkAnswers && <h3 className='message'>You scored {numCorrectAnswers}/5 correct answers</h3>}

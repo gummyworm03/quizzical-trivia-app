@@ -2,7 +2,7 @@ import '../styles.css';
 
 
 export default function QuizCard(props) {
-
+    //console.log(props.quizState)
     function decodeHtml(html) {
         let txt = document.createElement('textarea');
         txt.innerHTML = html;
@@ -11,10 +11,11 @@ export default function QuizCard(props) {
 
     //Get current question and save in variable for readability
     function getCurrentQuestion() {
-        const questionIndex = props.quizState.findIndex(question => question.id === props.id);
+        let questionIndex = props.quizState.findIndex(question => question.id === props.id);
         return props.quizState[questionIndex];
     }
-    const currentQuestion = getCurrentQuestion();
+    let currentQuestion = getCurrentQuestion();
+    //console.log(currentQuestion)
 
     //Apply conditional styling after scoring answers
     function getAnswerClass(index) {
