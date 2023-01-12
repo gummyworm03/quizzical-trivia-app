@@ -67,12 +67,17 @@ export default function QuizPage(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        const scoreAnswersArray = quizState.filter(question => question.selectedAnswer === question.correctAnswer)
-        setNumCorrectAnswers(scoreAnswersArray.length);
-        setCheckAnswers(true);
-        if (numCorrectAnswers === 5) {
-            setPerfectScore(true);
+        if (allAnswered) {
+            const scoreAnswersArray = quizState.filter(question => question.selectedAnswer === question.correctAnswer)
+            setNumCorrectAnswers(scoreAnswersArray.length);
+            setCheckAnswers(true);
+            if (numCorrectAnswers === 5) {
+                setPerfectScore(true);
+            }
+        } else {
+            return false;
         }
+        
     }
 
     //check for perfect score

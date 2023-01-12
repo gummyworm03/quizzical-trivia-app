@@ -16,26 +16,7 @@ export default function QuizCard(props) {
     }
     const currentQuestion = getCurrentQuestion();
 
-    
-    //show correct/incorrect an`ans-label ${swers when checkA}`nswers is true
-    //if selected answer === correct answer, turn green,
-    //if selected answer !== correct answer, turn red && turn correct answer green
-    //checkAnswers && currentQuestion.answers[] === currentQuestion.correctAnswer ? ans-correct : 
-    //                                                                                             currentQuestion.selectedAnswer === answers[] ?  ans-incorrect : ""
-
-    //checkAnswers ? currentQuestion.answers[] === currentQuestion.correctAnswer ? ans-correct : 
-    //                                                                                             currentQuestion.selectedAnswer === answers[] ?  ans-incorrect : ""
-    //              : ""
-//    if (checkAnswers) {
-//     if (currentQuestion.answers[0] === currentQuestion.correctAnswer) {
-//         return 'ans-correct'
-//     } else if (currentQuestion.selectedAnswer === answers[0]) {
-//         return 'ans-incorrect'
-//     } else {
-//         return ''
-//     }
-//    }
-
+    //Apply conditional styling after scoring answers
     function getAnswerClass(index) {
         if (props.checkAnswers) {
             if (currentQuestion.answers[index] === currentQuestion.correctAnswer) {
@@ -46,16 +27,21 @@ export default function QuizCard(props) {
             } else if (currentQuestion.selectedAnswer === currentQuestion.answers[index]) {
                 return ({
                     backgroundColor: '#F8BCBC',
-                    borderColor: '#F8BCBC'
+                    borderColor: '#F8BCBC',
+                    opacity: 0.5
                 })
             } else {
-                return {}
+                return ({
+                    color: '#4D5B9E',
+                    borderColor: '#4D5B9E',
+                    opacity: 0.5
+                })
             }
         } else {
             return {}
         }
     }
-//className={`ans-label ${getAnswerClass(0)}`}
+
     return (
         <main className='quiz-card'>
             <fieldset>
@@ -70,8 +56,7 @@ export default function QuizCard(props) {
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
                 <label htmlFor={`answer-${currentQuestion.answers[0]}`}
-                        style={getAnswerClass(0)}
-                        className={''}>
+                        style={getAnswerClass(0)}>
                     {decodeHtml(currentQuestion.answers[0])}
                 </label>
                 
@@ -85,8 +70,7 @@ export default function QuizCard(props) {
                     
                 />
                 <label htmlFor={`answer-${currentQuestion.answers[1]}`}
-                        style={getAnswerClass(1)}
-                        className={''}>
+                        style={getAnswerClass(1)}>
                     {decodeHtml(currentQuestion.answers[1])}
                 </label>
                 
@@ -99,8 +83,7 @@ export default function QuizCard(props) {
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
                 <label htmlFor={`answer-${currentQuestion.answers[2]}`}
-                        style={getAnswerClass(2)}
-                        className={''}>
+                        style={getAnswerClass(2)}>
                     {decodeHtml(currentQuestion.answers[2])}
                 </label>
                 
@@ -113,8 +96,7 @@ export default function QuizCard(props) {
                     onChange={(event)=>props.handleChange(event,props.id)}
                 />
                 <label htmlFor={`answer-${currentQuestion.answers[3]}`}
-                        style={getAnswerClass(3)}
-                        className={''}>
+                        style={getAnswerClass(3)}>
                     {decodeHtml(currentQuestion.answers[3])}
                 </label>
 

@@ -26,8 +26,8 @@ button:focus {
 
 /* Styles */
 .welcome-page, .quiz-page {
-    height: 650px;
-    width: 650px;
+    width: 700px;
+    height: 700px;
     background-color: #F5F7FB;
     background-image: url(./img/yellow-blob.png), url(./img/blue-blob.png);
     background-repeat: no-repeat, no-repeat;
@@ -39,6 +39,8 @@ button:focus {
     bottom: 0;
     left: 0;
     right: 0;
+    border: .6px dashed #4D5B9E;
+    border-radius: 5px;
 }
 
 .welcome-page {
@@ -105,6 +107,7 @@ form {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin-top: 15px;
 }
 
 fieldset {
@@ -118,7 +121,7 @@ legend {
     font-size: 18px;
     margin-bottom: 11px;
     color: #293264;
-    margin-right: 70px;
+    margin-right: 60px;
     font-weight: 700;
   }
 
@@ -127,9 +130,9 @@ label {
     margin-left: 0;
     display: inline-block;
     min-width: 70px;
-    max-width: 110px;
+    max-width: 125px;
     min-height: 25px;
-    border: .8px solid #4D5B9E;
+    border: .9px solid #4D5B9E;
     border-radius: 8px;
     padding: 5px;
     font-size: 10px;
@@ -142,7 +145,7 @@ label:hover {
     background-color: #D6DBF5;
 }
 
-label:active {
+label:active, button:active {
 	box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.30) inset;
 }
 
@@ -176,12 +179,3 @@ hr {
     cursor: not-allowed;
 }
 
-.ans-label.ans-correct {
-    background-color: #94D7A2;
-    border-color: #94D7A2;
-}
-
-.ans-label.ans-incorrect {
-    background-color: #F8BCBC;
-    border-color: #F8BCBC;
-}
