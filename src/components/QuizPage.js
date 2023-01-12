@@ -75,6 +75,7 @@ export default function QuizPage(props) {
         }
     }
 
+    //check for perfect score
     useEffect(() => {
         if (numCorrectAnswers === 5) {
             setPerfectScore(true);
@@ -98,13 +99,13 @@ export default function QuizPage(props) {
             <form onSubmit={handleSubmit}>
                 {quizElements}
                 <div className='btn-container'>
-                    {showError && <h3 id='error-message'>Please answer all questions</h3>}
-                    {checkAnswers && <h3>You scored {numCorrectAnswers}/5 correct answers</h3>}
                     <button className={allAnswered ? 'button-check' : 'button-check button-check-disabled'}
                             onMouseEnter={() => setShowError(true)}
                             onMouseLeave={() => setShowError(false)}>
                         Check answers
                     </button> 
+                    {showError && !allAnswered && <h3 id='error-message' className='message'>Please answer all questions</h3>}
+                    {checkAnswers && <h3 className='message'>You scored {numCorrectAnswers}/5 correct answers</h3>}
                 </div>
             </form>
         </main>
