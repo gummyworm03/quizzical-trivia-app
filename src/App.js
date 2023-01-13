@@ -32,8 +32,9 @@ export default function App() {
 
   return (
     <div className="App">
+      <div className='loading-page'>Loading...</div>
       {!started && <Welcome startQuiz={startQuiz}/>}
-      {started && isFetched && <QuizPage started={started} 
+      {started && isFetched && <QuizPage started={started}
                 quizData={quizData}
                 newGame={newGame}/>}
     </div>

@@ -91,9 +91,9 @@ export default function QuizPage(props) {
             
         />
     ))
-
+//{props.started ? "quiz-page fade-in" : "quiz-page"}
     return (
-        <main className={props.started ? "quiz-page fade-in" : "quiz-page"}>
+        <main className= "quiz-page">
             <form onSubmit={checkAnswers ? (event)=>props.newGame(event) : handleSubmit}>
                 {quizElements}
                 <div className='btn-container'>

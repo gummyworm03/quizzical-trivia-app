@@ -25,7 +25,7 @@ button:focus {
 }
 
 /* Styles */
-.welcome-page, .quiz-page {
+.welcome-page, .quiz-page, .loading-page {
     width: 700px;
     height: 700px;
     background-color: #F5F7FB;
@@ -41,6 +41,15 @@ button:focus {
     right: 0;
     border: .6px dashed #4D5B9E;
     border-radius: 5px;
+}
+
+.loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #293264;
+    font-weight: 700;
+    font-size: 32px;
 }
 
 .welcome-page {
@@ -74,32 +83,6 @@ button:focus {
     margin-bottom: 0;
     font-size: 40px;
 }
-
-.quiz-page.fade-in {
-    animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-.welcome-page.fade-out {
-    animation: fadeOut 2.5s;
-}
-
-@keyframes fadeOut {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
 
 
 .quiz-page {
