@@ -6,8 +6,8 @@ export default function App() {
   const [started, setStarted] = useState(false);
   const [quizData, setQuizData] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
-  const [playAgain, setPlayAgain] = useState(false);
-  
+  const [playAgain, setPlayAgain] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   function startQuiz() {
     setStarted(true);
@@ -17,7 +17,7 @@ export default function App() {
     event.preventDefault();
     console.log('Play Again')
     setIsFetched(false);
-    setPlayAgain(true);
+    setPlayAgain(prev => prev + 1);
   }
 
   useEffect(() => {
@@ -30,25 +30,12 @@ export default function App() {
     getQuizData();
   }, [playAgain])
 
-  //console.log(quizData)
-    
-    //when setting newgame:
-    // quizstate needs to reset
-    // allAnswered > false
-    //checkAnswers > false
-    //numCorrectAnswers > null
-    //!perfectScore ? do nothing : setPerfectScore(true)
-
-
-    
   return (
     <div className="App">
-      <Welcome startQuiz={startQuiz}/>
-      {started && isFetched &&<QuizPage 
-                    started={started} 
-                    quizData={quizData}
-                    playAgain={playAgain}
-                    newGame={newGame}/>}
+      {!started && <Welcome startQuiz={startQuiz}/>}
+      {started && isFetched && <QuizPage started={started} 
+                quizData={quizData}
+                newGame={newGame}/>}
     </div>
   );
 }

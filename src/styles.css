@@ -88,6 +88,20 @@ button:focus {
     }
   }
 
+.welcome-page.fade-out {
+    animation: fadeOut 2.5s;
+}
+
+@keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+
 .quiz-page {
     padding: 40px 75px 25px 75px;
 }

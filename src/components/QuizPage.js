@@ -12,20 +12,11 @@ export default function QuizPage(props) {
   //will add check for perfect score to render confetti 
     const [perfectScore, setPerfectScore] = useState(false);
     const [showError, setShowError] = useState(false);
-   
-    
-    // when setting newgame:
-    // quizstate needs to reset
-    // allAnswered > false
-    // checkAnswers > false
-    // numCorrectAnswers > null
-    // !perfectScore ? do nothing : setPerfectScore(true)
-
 
     //helper function to shuffle answers
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
-          let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+          let j = Math.floor(Math.random() * (i + 1)); 
           [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
@@ -73,8 +64,7 @@ export default function QuizPage(props) {
             }))
         })
     }
-    //console.log(quizState)
-
+    console.log(quizState)
     function handleSubmit(event) {
         event.preventDefault();
         if (allAnswered) {
@@ -90,7 +80,6 @@ export default function QuizPage(props) {
         
     }
 
-   
     const quizElements = props.quizData.map(question => (
         <QuizCard 
             key={nanoid()}
@@ -120,4 +109,3 @@ export default function QuizPage(props) {
         </main>
     )
 }
-//will need to do conditional rendering for button types
