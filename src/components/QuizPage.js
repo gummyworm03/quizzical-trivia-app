@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles.css';
 import { nanoid } from 'nanoid';
 import QuizCard from './QuizCard';
-
+import Confetti from 'react-confetti';
 
 export default function QuizPage(props) {
     const [quizState, setQuizState] = useState(getQuizState());
@@ -92,7 +92,11 @@ export default function QuizPage(props) {
         />
     ))
 //{props.started ? "quiz-page fade-in" : "quiz-page"}
+    
+
     return (
+        <>
+        {perfectScore && <Confetti />}
         <main className= "quiz-page">
             <form onSubmit={checkAnswers ? (event)=>props.newGame(event) : handleSubmit}>
                 {quizElements}
@@ -107,5 +111,6 @@ export default function QuizPage(props) {
                 </div>
             </form>
         </main>
+        </>
     )
 }
