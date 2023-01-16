@@ -60,6 +60,19 @@ button:focus {
     
 }
 
+.welcome-page.started {
+    animation: fadeOut 1s;
+}
+
+@keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+}
+
 .start-button {
     height: 50px;
     width: 175px;
