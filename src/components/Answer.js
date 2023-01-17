@@ -1,6 +1,6 @@
 import decodeHtml from '../decodeHtml';
 
-export default function Answer({ answer, id }) {
+export default function Answer({ answer, id, selectedAnswer, handleChange }) {
     return (
         <>
            <input 
@@ -8,7 +8,8 @@ export default function Answer({ answer, id }) {
                 id={`answer-${answer}`}
                 name={`answer-${id}`}
                 value={answer}
-                checked={false}
+                checked={selectedAnswer === answer}
+                onChange={(event)=>handleChange(event,id)}
                 />
             <label htmlFor={`answer-${answer}`}>
                 {decodeHtml(answer)}
