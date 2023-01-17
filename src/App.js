@@ -12,8 +12,7 @@ export default function App() {
 
   return (
     <div className="App">
-      {/* <div className='loading-page'>Loading...</div>
-      <Welcome started={started} startQuiz={startQuiz}/> */}
+      {/* <Welcome started={started} startQuiz={startQuiz}/> */}
       <QuizPage started={started}/>
     </div>
   );

@@ -9,14 +9,21 @@ import data from '../data';
 import shuffle from '../shuffle';
 
 export default function QuizPage(props) {
-    const [quizState, setQuizState] = useState([]);
+    //change to placeholder data for now to avoid empty array bug 
+    const [quizState, setQuizState] = useState(getQuizState(data.results));
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [allAnswered, setAllAnswered] = useState(false);
     const [checkAnswers, setCheckAnswers] = useState(false);
     const [numCorrectAnswers, setNumCorrectAnswers] = useState(null);
     const [showErrorMsg, setShowErrorMsg] = useState(false);
-
+    //Consider refactoring and combining state since these are all related
+    // const [answeredState, setAnsweredState] = useState({
+    //     allAnswered: false,
+    //     scoreAnswers: false,
+    //     numCorrectAnswers: null,
+    //     perfectScore: false
+    // });
     /*Time to think about state. This is what will change based on user input:
         1. The selected answer of each question
         2. The button will only be active once all questions are answered.
@@ -59,13 +66,14 @@ export default function QuizPage(props) {
             })
             .finally(() => setIsLoading(false));
     };
+    //bug because initial state is empty array so this stays true
+    useEffect(() => {
+        const answersArray = quizState.filter(question => !question.selectedAnswer )
+        if (answersArray.length === 0) {
+            setAllAnswered(true);
+        } 
+    }, [quizState]);
 
-    // useEffect(() => {
-    //     const answersArray = quizState.filter(question => !question.selectedAnswer )
-    //     if (answersArray.length === 0) {
-    //         setAllAnswered(true);
-    //     } 
-    // }, [quizState]);
     
     function handleChange(event, id) {
         const { value } = event.target;
@@ -76,42 +84,47 @@ export default function QuizPage(props) {
         })
     };
   
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    //     if (allAnswered) {
-    //         const scoreAnswersArray = quizState.filter(question => question.selectedAnswer === question.correctAnswer)
-    //         setNumCorrectAnswers(scoreAnswersArray.length);
-    //         setCheckAnswers(true);
-    //         if (numCorrectAnswers === 5) {
-    //             props.setPerfectScore(true);
-    //         }
-    //     } else {
-    //         return false;
-    //     }
-        
-    // )
-
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (allAnswered) {
+            const scoreAnswersArray = quizState.filter(question => question.selectedAnswer === question.correctAnswer)
+            setNumCorrectAnswers(scoreAnswersArray.length);
+            setCheckAnswers(true);
+            // if (scoreAnswersArray.length === 5) {
+            //     props.setPerfectScore(true);
+            // }
+        } else {
+            return false;
+        }
+    }
     
-   
     const quizElements = quizState.map(question => (
         <QuizCard key={nanoid()}>
             <Question question={question.question}/>
             <Answer answer={question.answers[0]} 
                     id={question.id} 
                     selectedAnswer={question.selectedAnswer}
-                    handleChange={handleChange}/>
+                    correctAnswer={question.correctAnswer}
+                    handleChange={handleChange}
+                    checkAnswers={checkAnswers}/>
             <Answer answer={question.answers[1]} 
                     id={question.id} 
                     selectedAnswer={question.selectedAnswer}
-                    handleChange={handleChange}/>
+                    correctAnswer={question.correctAnswer}
+                    handleChange={handleChange}
+                    checkAnswers={checkAnswers}/>
             <Answer answer={question.answers[2]} 
                     id={question.id} 
                     selectedAnswer={question.selectedAnswer}
-                    handleChange={handleChange}/>
+                    correctAnswer={question.correctAnswer}
+                    handleChange={handleChange}
+                    checkAnswers={checkAnswers}/>
             <Answer answer={question.answers[3]} 
                     id={question.id} 
                     selectedAnswer={question.selectedAnswer}
-                    handleChange={handleChange}/>
+                    correctAnswer={question.correctAnswer}
+                    handleChange={handleChange}
+                    checkAnswers={checkAnswers}/>
         </QuizCard>
     ));
     
@@ -120,7 +133,7 @@ export default function QuizPage(props) {
         <>
         <main className= "quiz-page">
             {isLoading && <div className='loading-page'>Loading...</div>}
-            {!isLoading &&<form>
+            {!isLoading &&<form onSubmit={checkAnswers ? (event)=>props.newGame(event) : handleSubmit}>
                 {quizElements}
                 <div className='btn-container'>
                     <button className={allAnswered ? 'button-check' : 'button-check button-check-disabled'}
@@ -137,38 +150,18 @@ export default function QuizPage(props) {
     )
 }
 
-{/* <main className= "quiz-page">
-<form onSubmit={checkAnswers ? (event)=>props.newGame(event) : handleSubmit}>
-    {quizElements}
-    <div className='btn-container'>
-        <button className={allAnswered ? 'button-check' : 'button-check button-check-disabled'}
-                onMouseEnter={() => setShowError(true)}
-                onMouseLeave={() => setShowError(false)}>
-            {checkAnswers ? 'Play Again' : 'Check answers'}
-        </button> 
-        {showError && !allAnswered && <h3 id='error-message' className='message'>Please answer all questions</h3>}
-        {checkAnswers && <h3 className='message'>You scored {numCorrectAnswers}/5 correct answers</h3>}
-    </div>
-</form>
-</main> */}
 
-// //Get current question and save in variable for readability
-// function getCurrentQuestion() {
-//     const questionIndex = props.quizState.findIndex(question => question.id === props.id);
-//     return props.quizState[questionIndex];
-// }
-// const currentQuestion = getCurrentQuestion();
 
 
 // //Apply conditional styling after scoring answers
-// function getAnswerClass(index) {
+// function getAnswerClass() {
 //     if (props.checkAnswers) {
-//         if (currentQuestion.answers[index] === currentQuestion.correctAnswer) {
+//         if (answer === correctAnswer) {
 //             return ({
 //                 backgroundColor: '#94D7A2',
 //                 borderColor: '#94D7A2'
 //             })
-//         } else if (currentQuestion.selectedAnswer === currentQuestion.answers[index]) {
+//         } else if (answer === selectedAnswer) {
 //             return ({
 //                 backgroundColor: '#F8BCBC',
 //                 borderColor: '#F8BCBC',

@@ -1,6 +1,33 @@
 import decodeHtml from '../decodeHtml';
+//might want to spread in props instead
+export default function Answer({ answer, id, selectedAnswer, handleChange, checkAnswers, correctAnswer }) {
 
-export default function Answer({ answer, id, selectedAnswer, handleChange }) {
+    //Apply conditional styling after scoring answers
+    function getAnswerClass() {
+        if (checkAnswers) {
+            if (answer === correctAnswer) {
+                return ({
+                    backgroundColor: '#94D7A2',
+                    borderColor: '#94D7A2'
+                })
+            } else if (answer === selectedAnswer) {
+                return ({
+                    backgroundColor: '#F8BCBC',
+                    borderColor: '#F8BCBC',
+                    opacity: 0.5
+                })
+            } else {
+                return ({
+                    color: '#4D5B9E',
+                    borderColor: '#4D5B9E',
+                    opacity: 0.5
+                })
+            }
+        } else {
+            return {}
+        }
+    }
+
     return (
         <>
            <input 
@@ -11,22 +38,11 @@ export default function Answer({ answer, id, selectedAnswer, handleChange }) {
                 checked={selectedAnswer === answer}
                 onChange={(event)=>handleChange(event,id)}
                 />
-            <label htmlFor={`answer-${answer}`}>
+            <label htmlFor={`answer-${answer}`}
+                    style={getAnswerClass()}>
                 {decodeHtml(answer)}
             </label>
         </>
     )
 }
 
-{/*             <input 
-                    type="radio"
-                    id={`answer-${currentQuestion.answers[0]}`}
-                    name={`answer-${props.id}`}
-                    value={currentQuestion.answers[0]}
-                    checked={currentQuestion.selectedAnswer === currentQuestion.answers[0]}
-                    onChange={(event)=>props.handleChange(event,props.id)}
-                />
-                <label htmlFor={`answer-${currentQuestion.answers[0]}`}
-                        style={getAnswerClass(0)}>
-                    {decodeHtml(currentQuestion.answers[0])}
-                </label> */}
